@@ -40,8 +40,6 @@ public class JckSecurityConfig {
                 /** 인증 예외 URL **/
                 .authorizeHttpRequests(auth -> {
                     JckWhiteUrlEnum.stream().forEach(url -> auth.requestMatchers(url).permitAll());
-//                    auth.requestMatchers(PathRequest.toH2Console()).permitAll()
-//                            .anyRequest().authenticated();
                 })
 
                 /** JWT 인증 필터 **/
