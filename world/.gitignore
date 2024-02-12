@@ -18,7 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### DB 정보 커밋 금지
-./resources/application.properties
+/resources/application.yaml
 
 ### IntelliJ IDEA ###
 .idea
