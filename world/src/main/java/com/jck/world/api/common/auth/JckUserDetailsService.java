@@ -22,14 +22,8 @@ public class JckUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(final String userId) {
-
-        Optional<com.jck.world.api.user.domain.User> user = userRepository.findByUserId(userId);
-
-        if (user.isEmpty()){
-            throw new CommonException(CommonExceptionEnum.INVALID_USER_ID);
-        }
-
-        return createUser(user.orElseThrow());
+        com.jck.world.api.user.domain.User user = userRepository.findByUserId(userId).orElseThrow(() -> new CommonException(CommonExceptionEnum.INVALID_USER_ID));
+        return createUser(user);
 
     }
 
