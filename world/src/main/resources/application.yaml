@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://gcp.connect.psdb.cloud:3306/binsoo_db?serverTimezone=UTC&characterEncoding=UTF-8
-    username: vdlz35sutluz82ohdaas
-    password: pscale_pw_V6bBpp2nhp1Te7Gn3zo5eqncyHmNXXeVuwsGNAZcwCM
+    url: jdbc:mysql://localhost:3306/binsoo_db?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
     hikari:
       maximum-pool-size: 40
   jpa:
