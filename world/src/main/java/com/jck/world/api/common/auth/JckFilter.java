@@ -1,7 +1,7 @@
 package com.jck.world.api.common.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jck.world.api.common.exception.CommonExceptionDto;
+import com.jck.world.api.common.exception.CommonException;
 import com.jck.world.api.common.exception.CommonExceptionEnum;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -58,7 +58,7 @@ public class JckFilter extends OncePerRequestFilter {
     private void setErrorResponse( HttpServletResponse response ) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        CommonExceptionDto exceptionDto = new CommonExceptionDto(CommonExceptionEnum.AUTHENTICATION_ERROR);
+        CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
         String errorMsg = objectMapper.writeValueAsString(exceptionDto);
         response.getWriter().print(errorMsg);
     }
