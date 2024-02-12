@@ -1,6 +1,6 @@
 package com.jck.world.api.common.auth;
 
-import com.jck.world.api.common.exception.CommonExceptionDto;
+import com.jck.world.api.common.exception.CommonException;
 import com.jck.world.api.common.exception.CommonExceptionEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ public class JckAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        CommonExceptionDto exceptionDto = new CommonExceptionDto(CommonExceptionEnum.AUTHENTICATION_ERROR);
+        CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
         String errorMsg = objectMapper.writeValueAsString(exceptionDto);
         response.getWriter().print(errorMsg);
     }
