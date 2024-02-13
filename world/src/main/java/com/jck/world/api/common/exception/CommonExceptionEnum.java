@@ -2,6 +2,7 @@ package com.jck.world.api.common.exception;
 
 import lombok.Getter;
 
+@Getter
 public enum CommonExceptionEnum {
 
     DUPLICATE_USER_ID(1000, "이미 사용중인 아이디입니다.")
@@ -15,7 +16,8 @@ public enum CommonExceptionEnum {
     , INTERNAL_SERVER_ERROR(1008, "서버 오류입니다.")
     , NOT_FOUND(1009, "요청한 정보를 찾을 수 없습니다.")
     , BAD_REQUEST(1010, "잘못된 요청입니다.")
-    , FORBIDDEN(1011, "접근이 금지되었습니다.");
+    , FORBIDDEN(1011, "접근이 금지되었습니다.")
+    , NO_DATA(1012,  "데이터가 존재하지 않습니다.");
 
     private int code;
     private String message;
@@ -23,5 +25,9 @@ public enum CommonExceptionEnum {
     CommonExceptionEnum(int code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public String getMessage() {
+        return "code: " + code + ", message: " + message;
     }
 }
