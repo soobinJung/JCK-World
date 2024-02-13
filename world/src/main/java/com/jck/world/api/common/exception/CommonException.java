@@ -11,14 +11,8 @@ public class CommonException extends RuntimeException {
 
     private CommonExceptionEnum code;
 
-    private Map<String, String> errors;
-
     public CommonException(CommonExceptionEnum code) {
+        super(code.getMessage()); // 열거형의 실제 메시지를 사용
         this.code = code;
-    }
-
-    public CommonException(CommonExceptionEnum code, Map<String, String> errors) {
-        this.code = code;
-        this.errors = errors;
     }
 }

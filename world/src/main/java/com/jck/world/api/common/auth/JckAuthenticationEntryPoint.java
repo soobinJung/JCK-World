@@ -22,6 +22,8 @@ public class JckAuthenticationEntryPoint implements AuthenticationEntryPoint {
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        authException.printStackTrace();
         CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
         String errorMsg = objectMapper.writeValueAsString(exceptionDto);
         response.getWriter().print(errorMsg);

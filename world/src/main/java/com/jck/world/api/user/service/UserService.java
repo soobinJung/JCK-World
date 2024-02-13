@@ -1,5 +1,7 @@
 package com.jck.world.api.user.service;
 
+import com.jck.world.api.common.exception.CommonException;
+import com.jck.world.api.common.exception.CommonExceptionEnum;
 import com.jck.world.api.user.domain.User;
 import com.jck.world.api.user.dto.UserDto;
 import com.jck.world.api.user.repository.UserRepository;
@@ -7,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +50,8 @@ public class UserService {
      * 아이디 중복 체크
      */
     private void checkDuplicateUserId(String userId){
-        userRepository.findByUserId(userId).ifPresent(u -> {throw new IllegalArgumentException("이미 존재하는 아이디입니다.");});
+        userRepository.findByUserId(userId).ifPresent(user -> {
+            throw new CommonException(CommonExceptionEnum.DUPLICATE_USER_ID);
+        });
     }
 }

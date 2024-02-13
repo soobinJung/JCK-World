@@ -19,18 +19,19 @@ public class JckFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String AUTHORIZATION_HEADER_VALUE = "Bearer ";
     private final JckTokenProvider tokenProvider;
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public JckFilter(JckTokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, CommonException {
         try{
             String requestURI = request.getRequestURI();
             if (!JckWhiteUrlEnum.contains(requestURI)) {
                 String jwt = resolveToken(request);
+
+
                 if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                     Authentication authentication = tokenProvider.getAuthentication(jwt);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -38,7 +39,7 @@ public class JckFilter extends OncePerRequestFilter {
             }
             filterChain.doFilter(request, response);
         }catch (JckJwtAuthenticationException e){
-            setErrorResponse(response);
+            throw new CommonException(CommonExceptionEnum.INVALID_TOKEN);
         }
     }
 
@@ -55,11 +56,11 @@ public class JckFilter extends OncePerRequestFilter {
         throw new JckJwtAuthenticationException();
     }
 
-    private void setErrorResponse( HttpServletResponse response ) throws IOException {
-        response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
-        String errorMsg = objectMapper.writeValueAsString(exceptionDto);
-        response.getWriter().print(errorMsg);
-    }
+//    private void setErrorResponse( HttpServletResponse response ) throws IOException {
+//        response.setContentType("application/json;charset=UTF-8");
+//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+//        CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
+//        String errorMsg = objectMapper.writeValueAsString(exceptionDto);
+//        response.getWriter().print(errorMsg);
+//    }
 }
