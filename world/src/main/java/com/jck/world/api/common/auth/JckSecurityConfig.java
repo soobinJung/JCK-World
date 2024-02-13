@@ -1,5 +1,6 @@
 package com.jck.world.api.common.auth;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,18 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class JckSecurityConfig {
 
     private final JckTokenProvider tokenProvider;
     private final JckAuthenticationEntryPoint authenticationEntryPoint;
-
-
-    public JckSecurityConfig(JckTokenProvider tokenProvider, JckAuthenticationEntryPoint authenticationEntryPoint) {
-        this.tokenProvider = tokenProvider;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -40,6 +36,8 @@ public class JckSecurityConfig {
                 /** 인증 예외 URL **/
                 .authorizeHttpRequests(auth -> {
                     JckWhiteUrlEnum.stream().forEach(url -> auth.requestMatchers(url).permitAll());
+
+                    auth.anyRequest().authenticated();
                 })
 
                 /** JWT 인증 필터 **/
