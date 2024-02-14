@@ -1,8 +1,9 @@
 import React from 'react';
 import Logo from '../home/icon/Logo';
 import Link from 'next/link';
+import { DefaultPropsType } from '@/types/common';
 
-function CommonLayout({ children }: { children: React.ReactNode }) {
+function CommonLayout({ children }: DefaultPropsType) {
   return (
     <div className="bg-primary w-full min-h-screen">
       <Link href={'/'}>
