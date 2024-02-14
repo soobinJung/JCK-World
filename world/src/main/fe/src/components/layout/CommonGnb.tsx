@@ -9,7 +9,7 @@ function CommonGnb() {
       </Link>
       <div className="flex gap-1 items-center">
         <div className="text-violet-700 w-[100px] text-center font-[700]">
-          <Link href={'/login'}>회원가입</Link>
+          <Link href={'/login/signup'}>회원가입</Link>
         </div>
         <div className="text-red-500 rounded-full w-[100px] text-center p-2 border border-red-500">
           <Link href={'/login'}>로그인</Link>
