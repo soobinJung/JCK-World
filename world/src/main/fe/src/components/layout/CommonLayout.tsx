@@ -6,7 +6,7 @@ import { DefaultPropsType } from '@/types/common';
 function CommonLayout({ children }: DefaultPropsType) {
   return (
     <div className="bg-primary w-full min-h-screen">
-      <Link href={'/'}>
+      <Link href={'/'} className="fixed top-0 left-0">
         <Logo />
       </Link>
       {children}
