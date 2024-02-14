@@ -26,7 +26,7 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="m-4">
         <label htmlFor={LoginInfoEnum.EMAIL}>이메일</label>
         <input
           id={LoginInfoEnum.EMAIL}
@@ -36,7 +36,7 @@ function LoginForm() {
           onChange={(e) => handleChangeValue(LoginInfoEnum.EMAIL, e)}
         ></input>
       </div>
-      <div>
+      <div className="m-4">
         <label htmlFor={LoginInfoEnum.PASSWORD}>비밀번호</label>
         <input
           id={LoginInfoEnum.PASSWORD}
@@ -49,7 +49,7 @@ function LoginForm() {
       <button
         type="submit"
         aria-label="로그인"
-        className="bg-lavender-500 px-4 py-2 rounded-md text-lavender-100"
+        className="bg-lavender-500 px-4 py-2 rounded-md text-lavender-100 w-full"
       >
         로그인
       </button>

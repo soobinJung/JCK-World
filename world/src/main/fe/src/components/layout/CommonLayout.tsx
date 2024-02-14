@@ -2,13 +2,12 @@ import React from 'react';
 import Logo from '../home/icon/Logo';
 import Link from 'next/link';
 import { DefaultPropsType } from '@/types/common';
+import CommonGnb from './CommonGnb';
 
 function CommonLayout({ children }: DefaultPropsType) {
   return (
     <div className="bg-primary w-full min-h-screen">
-      <Link href={'/'} className="fixed top-0 left-0">
-        <Logo />
-      </Link>
+      <CommonGnb />
       {children}
     </div>
   );
