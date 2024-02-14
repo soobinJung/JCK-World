@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_KR, Roboto } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
+import CommonLayout from '@/components/layout/CommonLayout';
 
 // globals.css 파일에서 font-face로 설정할까 했지만, google 폰트 지원하므로 next font로 설정
 // className으로 설정하면 default
@@ -37,7 +38,9 @@ export default function RootLayout({
       lang="en"
       className={`${noto_sans.className} ${roboto.variable} ${pretendard.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <CommonLayout>{children}</CommonLayout>
+      </body>
     </html>
   );
 }
