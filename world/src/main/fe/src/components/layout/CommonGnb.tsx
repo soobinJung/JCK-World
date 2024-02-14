@@ -3,7 +3,7 @@ import Logo from '../home/icon/Logo';
 
 function CommonGnb() {
   return (
-    <div className="min-w-[calc(100vw-80px)] px-8 py-4 flex items-center justify-between fixed top-0 left-[80px]">
+    <div className="min-w-[calc(100vw-80px)] pl-8 pr-[96px] py-4 flex items-center justify-between fixed top-0 left-[80px]">
       <Link href={'/'}>
         <Logo />
       </Link>
