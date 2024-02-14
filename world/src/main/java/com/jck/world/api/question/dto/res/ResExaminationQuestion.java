@@ -3,13 +3,16 @@ package com.jck.world.api.question.dto.res;
 import com.jck.world.api.examination.domain.Examination;
 import com.jck.world.api.question.domain.ExaminationQuestion;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 시험 문제 응답 객체
  */
+@Getter
 public class ResExaminationQuestion {
 
     private Long id;
@@ -18,8 +21,9 @@ public class ResExaminationQuestion {
     private String examinationPartType;
     private String examinationType;
 
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
+    @Getter
     @AllArgsConstructor
     public class Question {
         private Long id;
@@ -42,6 +46,7 @@ public class ResExaminationQuestion {
         }
 
         /** 시험정보 **/
+        this.id = examination.getId();
         this.examinationId = examination.getId();
         this.examinationDate = examination.getDate();
         this.examinationPartType = examination.getPartType().getDescription();

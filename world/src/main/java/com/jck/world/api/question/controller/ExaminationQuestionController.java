@@ -13,13 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExaminationQuestionController {
 
     private final ExaminationQuestionService examinationQuestionService;
-    private final ExaminationService examinationService;
 
     @GetMapping("/examination-question/{examinationId}")
     public ResExaminationQuestion findAllByExaminationId(@PathVariable Long examinationId) {
-        return new ResExaminationQuestion(
-                examinationService.getExaminationById(examinationId),
-                examinationQuestionService.findAllByExaminationId(examinationId)
-        );
+        return examinationQuestionService.findAllByExaminationId(examinationId);
     }
 }
