@@ -14,7 +14,7 @@ module.exports = {
       colors: {
         primary: '#eedcfc',
         lavender: {
-          50: '#faf5ff',
+          50: '#f8f8f8',
           100: '#f4e9fe',
           200: '#ebd6fe',
           300: '#dbb7fb',

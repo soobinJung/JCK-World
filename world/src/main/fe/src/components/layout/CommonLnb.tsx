@@ -19,7 +19,7 @@ function CommonLnb() {
 
   return (
     <div className="fixed left-0 top-0 bg-lavender-100 w-[80px] min-h-screen px-4 py-8 flex flex-col gap-4 items-center justify-between border-r border-lavender-200">
-      <div className="absolute top-1/2 -right-4 cursor-pointer rounded-full bg-lavender-200 border border-lavender-300">
+      <div className="absolute top-1/2 -right-4 cursor-pointer rounded-full bg-lavender-50 border border-lavender-300">
         <MdArrowRight className="text-[30px] text-lavender-700" />
       </div>
       <div className="flex flex-col gap-3">
