@@ -36,8 +36,8 @@ export default function Logo() {
           y2="54.2628"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#7A87FB" />
-          <stop offset="1" stop-color="#DF818C" />
+          <stop stopColor="#7A87FB" />
+          <stop offset="1" stopColor="#DF818C" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_784_454"
@@ -47,8 +47,8 @@ export default function Logo() {
           y2="33.7023"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#7A87FB" />
-          <stop offset="1" stop-color="#DF818C" />
+          <stop stopColor="#7A87FB" />
+          <stop offset="1" stopColor="#DF818C" />
         </linearGradient>
       </defs>
     </svg>
