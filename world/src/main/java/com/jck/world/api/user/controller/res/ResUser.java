@@ -1,4 +1,4 @@
-package com.jck.world.api.user.dto.res;
+package com.jck.world.api.user.controller.res;
 
 import com.jck.world.api.user.dto.UserDto;
 import lombok.Getter;
