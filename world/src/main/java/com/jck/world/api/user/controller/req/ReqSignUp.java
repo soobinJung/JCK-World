@@ -1,4 +1,4 @@
-package com.jck.world.api.user.dto.req;
+package com.jck.world.api.user.controller.req;
 
 import com.jck.world.api.user.dto.UserDto;
 import jakarta.validation.constraints.NotBlank;
