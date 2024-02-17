@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { DefaultPropsType } from '@/types/common';
+import CommonHeader from './CommonHeader';
 import CommonGnb from './CommonGnb';
-import CommonLnb from './CommonLnb';
 import { usePathname } from 'next/navigation';
 import { ROUTES } from '@/constants/routes';
 
@@ -15,8 +15,8 @@ function CommonLayout({ children }: DefaultPropsType) {
 
   return (
     <div className="bg-primary w-full min-h-screen">
-      <CommonGnb />
-      {isCommonPage() && <CommonLnb />}
+      <CommonHeader />
+      {isCommonPage() && <CommonGnb />}
       <div
         className={`${
           isCommonPage() &&
