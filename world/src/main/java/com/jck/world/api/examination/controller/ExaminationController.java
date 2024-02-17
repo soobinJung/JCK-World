@@ -19,7 +19,6 @@ public class ExaminationController {
 
     @GetMapping("/examination")
     public List<ResExamination> getExamination() {
-        System.out.println("hi 1");
         List<ExaminationDto> examinationDtoList = examinationService.getExamination();
         return examinationDtoList.stream()
                 .map(ResExamination::new)
