@@ -25,9 +25,7 @@ public class ExaminationService {
     private final ExaminationQuestionService examinationQuestionService;
 
     public List<ExaminationDto> getExamination() {
-        System.out.println("hi 2");
         List<Examination> examinations = examinationRepository.findAll();
-        System.out.println(examinations.size());
         return examinations.stream()
                 .map(Examination::toDto)
                 .toList();

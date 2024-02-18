@@ -17,7 +17,7 @@ public class ExaminationController {
 
     private final ExaminationService examinationService;
 
-    @GetMapping("/examination")
+    @GetMapping("/api/examination")
     public List<ResExamination> getExamination() {
         List<ExaminationDto> examinationDtoList = examinationService.getExamination();
         return examinationDtoList.stream()
@@ -25,7 +25,7 @@ public class ExaminationController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/examination/{id}")
+    @GetMapping("/api/examination/{id}")
     public ResExamination getExaminationById(@PathVariable Long id) {
         ExaminationDto examinationDto = examinationService.getExaminationById(id);
         return new ResExamination(examinationDto);

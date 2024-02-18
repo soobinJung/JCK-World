@@ -6,9 +6,11 @@ import com.jck.world.api.examination.code.ExaminationType;
 import com.jck.world.api.examination.dto.ExaminationDto;
 import com.jck.world.api.question.dto.ExaminationQuestionDto;
 import lombok.Getter;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 시험 정보 응답 객체
@@ -49,6 +51,7 @@ public class ResExamination {
             this.answer2 = examinationQuestionDto.getAnswer2();
             this.answer2Image = examinationQuestionDto.getAnswer2Image();
             this.answer3 = examinationQuestionDto.getAnswer3();
+            this.answer3Image = examinationQuestionDto.getAnswer3Image();
             this.answer4 = examinationQuestionDto.getAnswer4();
             this.answer4Image = examinationQuestionDto.getAnswer4Image();
         }
@@ -60,7 +63,7 @@ public class ResExamination {
         this.type = examinationDto.getType().getDescription();
         this.partType = examinationDto.getPartType().getDescription();
 
-        if(!examinationDto.getExaminationQuestionDtoList().isEmpty()){
+        if(!Optional.ofNullable(examinationDto.getExaminationQuestionDtoList()).isEmpty()){
             questions = examinationDto.getExaminationQuestionDtoList()
                     .stream()
                     .map(ResExamination.ResQuestion::new)
