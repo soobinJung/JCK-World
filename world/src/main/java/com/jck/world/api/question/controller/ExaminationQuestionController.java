@@ -16,9 +16,9 @@ public class ExaminationQuestionController {
 
     private final ExaminationQuestionService examinationQuestionService;
 
-    @GetMapping("/examination-question/{examinationId}")
-    public ResExaminationQuestion findAllByExaminationId(@PathVariable Long examinationId) {
-        List<ExaminationQuestionDto> examinationQuestionDtoList = examinationQuestionService.findAllByExaminationId(examinationId);
-        return new ResExaminationQuestion(examinationQuestionDtoList);
-    }
+//    @GetMapping("/examination-question/{examinationId}")
+//    public ResExaminationQuestion findAllByExaminationId(@PathVariable Long examinationId) {
+//        List<ExaminationQuestionDto> examinationQuestionDtoList = examinationQuestionService.findAllByExaminationId(examinationId);
+//        return new ResExaminationQuestion(examinationQuestionDtoList);
+//    }
 }
