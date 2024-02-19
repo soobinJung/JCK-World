@@ -31,3 +31,4 @@ public class ExaminationController {
         return new ResExamination(examinationDto);
     }
 }
+

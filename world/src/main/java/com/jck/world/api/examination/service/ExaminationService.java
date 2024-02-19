@@ -5,11 +5,10 @@ import com.jck.world.api.common.exception.CommonExceptionEnum;
 import com.jck.world.api.examination.domain.Examination;
 import com.jck.world.api.examination.dto.ExaminationDto;
 import com.jck.world.api.examination.repository.ExaminationRepository;
-import com.jck.world.api.question.domain.ExaminationQuestion;
 import com.jck.world.api.question.dto.ExaminationQuestionDto;
-import com.jck.world.api.question.repository.ExaminationQuestionRepository;
 import com.jck.world.api.question.service.ExaminationQuestionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
