@@ -1,36 +1,44 @@
 'use client';
-import { LoginInfoEnum, LoginInfoType } from '@/types/login';
-import React, { useState } from 'react';
+import { LoginInfoEnum } from '@/types/login';
 import { useImmer } from 'use-immer';
 
-function LoginForm() {
-  const [login, setLogin] = useImmer<LoginInfoType>({
+function SignupForm() {
+  const [userInfo, setUserInfo] = useImmer({
+    name: '',
     id: '',
     password: '',
   });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   const handleChangeValue = (
     type: LoginInfoEnum,
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setLogin((draft) => {
+    setUserInfo((draft) => {
       draft[type] = e.target.value;
     });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    console.log(login.id, login.password);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="m-4">
-        <label htmlFor={LoginInfoEnum.ID}>ID</label>
+        <div className="m-4">
+          <label htmlFor={LoginInfoEnum.NAME}>이름</label>
+          <input
+            id={LoginInfoEnum.NAME}
+            value={userInfo.name}
+            name={LoginInfoEnum.NAME}
+            type={LoginInfoEnum.NAME}
+            onChange={(e) => handleChangeValue(LoginInfoEnum.NAME, e)}
+          ></input>
+        </div>
+        <label htmlFor={LoginInfoEnum.ID}>아이디</label>
         <input
           id={LoginInfoEnum.ID}
-          value={login.id}
+          value={userInfo.id}
           name={LoginInfoEnum.ID}
           onChange={(e) => handleChangeValue(LoginInfoEnum.ID, e)}
         ></input>
@@ -39,7 +47,7 @@ function LoginForm() {
         <label htmlFor={LoginInfoEnum.PASSWORD}>비밀번호</label>
         <input
           id={LoginInfoEnum.PASSWORD}
-          value={login.password}
+          value={userInfo.password}
           name={LoginInfoEnum.PASSWORD}
           type={LoginInfoEnum.PASSWORD}
           onChange={(e) => handleChangeValue(LoginInfoEnum.PASSWORD, e)}
@@ -47,12 +55,13 @@ function LoginForm() {
       </div>
       <button
         type="submit"
-        aria-label="로그인"
+        aria-label="회원가입"
         className="bg-lavender-500 px-4 py-2 rounded-md text-lavender-100 w-full"
       >
-        로그인
+        회원가입
       </button>
     </form>
   );
 }
-export default LoginForm;
+
+export default SignupForm;

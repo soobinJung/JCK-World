@@ -1,9 +1,11 @@
 export interface LoginInfoType {
-  email: string;
+  id: string;
   password: string;
+  name?: string;
 }
 
 export enum LoginInfoEnum {
-  EMAIL = 'email',
+  ID = 'id',
+  NAME = 'name',
   PASSWORD = 'password',
 }
