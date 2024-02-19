@@ -1,6 +1,9 @@
 'use client';
 import { LoginInfoEnum } from '@/types/login';
 import { useImmer } from 'use-immer';
+import { Input } from '../common/Input';
+import { Label } from '../common/Label';
+import { Button } from '../common/Button';
 
 function SignupForm() {
   const [userInfo, setUserInfo] = useImmer({
@@ -13,53 +16,59 @@ function SignupForm() {
     e.preventDefault();
   };
 
-  const handleChangeValue = (
-    type: LoginInfoEnum,
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeValue = (type: LoginInfoEnum, value: string) => {
     setUserInfo((draft) => {
-      draft[type] = e.target.value;
+      draft[type] = value;
     });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="m-4">
-        <div className="m-4">
-          <label htmlFor={LoginInfoEnum.NAME}>이름</label>
-          <input
-            id={LoginInfoEnum.NAME}
-            value={userInfo.name}
-            name={LoginInfoEnum.NAME}
-            type={LoginInfoEnum.NAME}
-            onChange={(e) => handleChangeValue(LoginInfoEnum.NAME, e)}
-          ></input>
-        </div>
-        <label htmlFor={LoginInfoEnum.ID}>아이디</label>
-        <input
-          id={LoginInfoEnum.ID}
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <div className="flex items-center justify-center gap-2">
+        <Label labelId="user-name">이름</Label>
+        <Input
+          labelId="user-name"
+          value={userInfo.name}
+          name={userInfo.name}
+          placeholder="이름을 입력하세요"
+          onChange={(value) => handleChangeValue(LoginInfoEnum.NAME, value)}
+        ></Input>
+      </div>
+      <div className="flex items-center justify-center gap-2">
+        <Label labelId="user-id">아이디</Label>
+        <Input
+          labelId="user-id"
           value={userInfo.id}
-          name={LoginInfoEnum.ID}
-          onChange={(e) => handleChangeValue(LoginInfoEnum.ID, e)}
-        ></input>
+          name={userInfo.id}
+          placeholder="사용할 아이디를 입력하세요"
+          onChange={(value) => handleChangeValue(LoginInfoEnum.ID, value)}
+        ></Input>
       </div>
-      <div className="m-4">
-        <label htmlFor={LoginInfoEnum.PASSWORD}>비밀번호</label>
-        <input
-          id={LoginInfoEnum.PASSWORD}
+      <div className="flex items-center justify-center gap-2">
+        <Label labelId="user-password">비밀번호</Label>
+        <Input
+          labelId="user-password"
           value={userInfo.password}
-          name={LoginInfoEnum.PASSWORD}
-          type={LoginInfoEnum.PASSWORD}
-          onChange={(e) => handleChangeValue(LoginInfoEnum.PASSWORD, e)}
-        ></input>
+          name={userInfo.password}
+          type="password"
+          placeholder="비밀번호를 입력하세요"
+          onChange={(value) => handleChangeValue(LoginInfoEnum.ID, value)}
+        ></Input>
       </div>
-      <button
-        type="submit"
-        aria-label="회원가입"
-        className="bg-lavender-500 px-4 py-2 rounded-md text-lavender-100 w-full"
-      >
+      <div className="flex items-center justify-center gap-2">
+        <Label labelId="user-passconfirm">비밀번호</Label>
+        <Input
+          labelId="user-passconfirm"
+          value={userInfo.password}
+          name={userInfo.password}
+          type="password"
+          placeholder="비밀번호를 재입력하세요"
+          onChange={(value) => handleChangeValue(LoginInfoEnum.ID, value)}
+        ></Input>
+      </div>
+      <Button type="submit" aria-label="회원가입" style="mt-4">
         회원가입
-      </button>
+      </Button>
     </form>
   );
 }
