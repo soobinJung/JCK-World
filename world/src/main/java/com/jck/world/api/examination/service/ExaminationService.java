@@ -5,11 +5,10 @@ import com.jck.world.api.common.exception.CommonExceptionEnum;
 import com.jck.world.api.examination.domain.Examination;
 import com.jck.world.api.examination.dto.ExaminationDto;
 import com.jck.world.api.examination.repository.ExaminationRepository;
-import com.jck.world.api.question.domain.ExaminationQuestion;
 import com.jck.world.api.question.dto.ExaminationQuestionDto;
-import com.jck.world.api.question.repository.ExaminationQuestionRepository;
 import com.jck.world.api.question.service.ExaminationQuestionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +24,7 @@ public class ExaminationService {
     private final ExaminationQuestionService examinationQuestionService;
 
     public List<ExaminationDto> getExamination() {
-        System.out.println("hi 2");
         List<Examination> examinations = examinationRepository.findAll();
-        System.out.println(examinations.size());
         return examinations.stream()
                 .map(Examination::toDto)
                 .toList();
