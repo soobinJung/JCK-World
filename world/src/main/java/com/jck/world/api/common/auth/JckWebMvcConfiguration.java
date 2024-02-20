@@ -15,7 +15,7 @@ public class JckWebMvcConfiguration extends WebMvcConfigurationSupport {
                         "http://localhost",
                         "http://localhost:80",
                         "http://localhost:8080"
-                )
+                ) 
                 .allowedMethods(HttpMethod.GET.name()
                         ,HttpMethod.HEAD.name()
                         ,HttpMethod.POST.name()
