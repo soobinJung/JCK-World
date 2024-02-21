@@ -54,4 +54,11 @@ public class UserService {
             throw new CommonException(CommonExceptionEnum.DUPLICATE_USER_ID);
         });
     }
+
+    /**
+     * 아이디로 회원 조회
+     */
+    public Optional<User> findByUserId(String userId) {
+        return userRepository.findByUserId(userId);
+    }
 }
