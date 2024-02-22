@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.util.Map;
 
-@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommonException extends RuntimeException {
 

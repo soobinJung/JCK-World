@@ -1,8 +1,8 @@
 # 📚JCK-World
 Spring Boot &amp; React 기반 Side Poroject
 
-- Test ID : 
-- Test PW : 
+- Test ID : soobin
+- Test PW : 1234
 
 <br>
 
@@ -27,8 +27,21 @@ Spring Boot &amp; React 기반 Side Poroject
 
 ## 개발 환경
 
-- Back-end : 
-- Front : HTML, React, styled-components, Recoil
+- Back-end 기술 스택
+   - Spring Boot Starter Web / Version 3.2.2
+   - Spring Boot Starter Security / Version 3.1.5
+   - Spring Boot Starter Data JPA / Version 3.2.2
+   - Spring Boot Starter Validation / Version 2.5.2
+   - springdoc-openapi-starter-webmvc-ui / Version 2.2.0
+   - MySQL Connector / Version 8.0.30
+   - QueryDSL JPA / Version 4.0.2
+
+- Front 기술 스택
+   - React
+   - HTML
+   - styled-components
+   - Recoil
+
 - 버전 및 이슈관리 : Github, Github Issues, Github Project
 - 협업 툴 : Notion, Github Wiki
 - 서비스 배포 환경 : 

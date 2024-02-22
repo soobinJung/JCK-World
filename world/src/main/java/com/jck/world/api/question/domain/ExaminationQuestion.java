@@ -1,6 +1,7 @@
 package com.jck.world.api.question.domain;
 
 import com.jck.world.api.examination.domain.Examination;
+import com.jck.world.api.question.dto.ExaminationQuestionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -52,4 +53,21 @@ public class ExaminationQuestion {
 
     @Comment("답안4 - 이미지")
     private String answer4Image;
+
+    public ExaminationQuestionDto toDto() {
+        return ExaminationQuestionDto.builder()
+                .id(id)
+                .examination(examination.toDto())
+                .question(question)
+                .correctAnswer(correctAnswer)
+                .answer1(answer1)
+                .answer1Image(answer1Image)
+                .answer2(answer2)
+                .answer2Image(answer2Image)
+                .answer3(answer3)
+                .answer3Image(answer3Image)
+                .answer4(answer4)
+                .answer4Image(answer4Image)
+                .build();
+    }
 }

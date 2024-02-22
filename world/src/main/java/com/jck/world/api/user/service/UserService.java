@@ -23,27 +23,27 @@ public class UserService {
      * 회원가입
      */
     @Transactional
-    public UserDto signUp(UserDto szsUserDto){
+    public UserDto signUp(UserDto userDto){
 
         /** 아이디 중복 체크 **/
-        checkDuplicateUserId(szsUserDto.getUserId());
+        checkDuplicateUserId(userDto.getUserId());
 
-        User szsUser = szsUserDto.toEntity();
+        User user = userDto.toEntity();
 
         /** 개인 정보 암호화 **/
-        encrypt(szsUser);
-        userRepository.save(szsUser);
+        encrypt(user);
+        userRepository.save(user);
 
-        return szsUser.toDto();
+        return user.toDto();
     }
 
     /**
      * 개인정보 암호화
      */
-    private void encrypt(User szsUser){
+    private void encrypt(User user){
 
         /** 비밀번호 **/
-        szsUser.setPassword(passwordEncoder.encode(szsUser.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 
     /**
@@ -53,5 +53,12 @@ public class UserService {
         userRepository.findByUserId(userId).ifPresent(user -> {
             throw new CommonException(CommonExceptionEnum.DUPLICATE_USER_ID);
         });
+    }
+
+    /**
+     * 아이디로 회원 조회
+     */
+    public Optional<User> findByUserId(String userId) {
+        return userRepository.findByUserId(userId);
     }
 }
