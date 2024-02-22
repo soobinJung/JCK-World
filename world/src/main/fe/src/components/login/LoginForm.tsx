@@ -1,58 +1,46 @@
 'use client';
 import { LoginInfoEnum, LoginInfoType } from '@/types/login';
-import React, { useState } from 'react';
+import React from 'react';
 import { useImmer } from 'use-immer';
+import { Input } from '../common/Input';
+import { Button } from '../common/Button';
 
 function LoginForm() {
   const [login, setLogin] = useImmer<LoginInfoType>({
-    email: '',
+    id: '',
     password: '',
   });
 
-  const handleChangeValue = (
-    type: LoginInfoEnum,
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeValue = (type: LoginInfoEnum, value: string) => {
     setLogin((draft) => {
-      draft[type] = e.target.value;
+      draft[type] = value;
     });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(login.email, login.password);
+    console.log(login.id, login.password);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="m-4">
-        <label htmlFor={LoginInfoEnum.EMAIL}>이메일</label>
-        <input
-          id={LoginInfoEnum.EMAIL}
-          value={login.email}
-          name={LoginInfoEnum.EMAIL}
-          type={LoginInfoEnum.EMAIL}
-          onChange={(e) => handleChangeValue(LoginInfoEnum.EMAIL, e)}
-        ></input>
-      </div>
-      <div className="m-4">
-        <label htmlFor={LoginInfoEnum.PASSWORD}>비밀번호</label>
-        <input
-          id={LoginInfoEnum.PASSWORD}
-          value={login.password}
-          name={LoginInfoEnum.PASSWORD}
-          type={LoginInfoEnum.PASSWORD}
-          onChange={(e) => handleChangeValue(LoginInfoEnum.PASSWORD, e)}
-        ></input>
-      </div>
-      <button
-        type="submit"
-        aria-label="로그인"
-        className="bg-lavender-500 px-4 py-2 rounded-md text-lavender-100 w-full"
-      >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <Input
+        value={login.id}
+        name={login.id}
+        placeholder="이름을 입력하세요"
+        onChange={(value) => handleChangeValue(LoginInfoEnum.ID, value)}
+      ></Input>
+      <Input
+        value={login.password}
+        name={login.password}
+        placeholder="비밀번호를 입력하세요"
+        type="password"
+        onChange={(value) => handleChangeValue(LoginInfoEnum.PASSWORD, value)}
+      ></Input>
+      <Button type="submit" aria-label="로그인" style="mt-4">
         로그인
-      </button>
+      </Button>
     </form>
   );
 }
