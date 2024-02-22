@@ -1,8 +1,8 @@
 # 📚JCK-World
 Spring Boot &amp; React 기반 Side Poroject
 
-- Test ID : 
-- Test PW : 
+- Test ID : soobin
+- Test PW : 1234
 
 <br>
 
