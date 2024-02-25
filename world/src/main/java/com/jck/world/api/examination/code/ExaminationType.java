@@ -1,17 +1,31 @@
 package com.jck.world.api.examination.code;
 
-public enum ExaminationType {
+import com.jck.world.api.common.code.AbstractCodedEnumConverter;
+import com.jck.world.api.common.code.CodedEnum;
+import lombok.Getter;
 
-    INFORMATION_PROCESSING_ENGINEER("정보처리기사"),
-    INFORMATION_PROCESSING_TECHNICIAN("정보처리산업기사");
+@Getter
+public enum ExaminationType implements CodedEnum<String> {
 
-    private final String description;
+    정보처리기사("INFORMATION_PROCESSING_ENGINEER"),
+    정보처리산업기사("INFORMATION_PROCESSING_TECHNICIAN");
 
-    ExaminationType(String description) {
-        this.description = description;
+    private final String code;
+
+    ExaminationType(String code) {
+        this.code = code;
     }
 
-    public String getDescription() {
-        return this.description;
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Getter
+    @jakarta.persistence.Converter(autoApply = true)
+    public static class Converter extends AbstractCodedEnumConverter<ExaminationType, String> {
+        public Converter() {
+            super(ExaminationType.class);
+        }
     }
 }

@@ -25,12 +25,10 @@ public class Examination {
     @Comment("시험일자")
     private LocalDate date;
 
-    @Enumerated(EnumType.STRING)
-    @Comment("정보처리기사 / 정보처리산업기사 구분")
+    @Convert(converter = ExaminationType.Converter.class)
     private ExaminationType type;
 
-    @Enumerated(EnumType.STRING)
-    @Comment("필기 / 실기 구분")
+    @Convert(converter = ExaminationPartType.Converter.class)
     private ExaminationPartType partType;
 
     public ExaminationDto toDto() {

@@ -28,10 +28,10 @@ public class JckFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, CommonException {
         try{
             String requestURI = request.getRequestURI();
+            System.out.println("requestURI : " + requestURI);
             if (!JckWhiteUrlEnum.contains(requestURI)) {
+                System.out.println("인증 요구 URL");
                 String jwt = resolveToken(request);
-
-
                 if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                     Authentication authentication = tokenProvider.getAuthentication(jwt);
                     SecurityContextHolder.getContext().setAuthentication(authentication);

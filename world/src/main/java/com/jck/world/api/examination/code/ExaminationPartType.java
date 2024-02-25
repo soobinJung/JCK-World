@@ -1,17 +1,31 @@
 package com.jck.world.api.examination.code;
 
-public enum ExaminationPartType {
+import com.jck.world.api.common.code.AbstractCodedEnumConverter;
+import com.jck.world.api.common.code.CodedEnum;
+import lombok.Getter;
 
-    WRITTEN("필기"),
-    PRACTICAL("실기");
+@Getter
+public enum ExaminationPartType implements CodedEnum<String> {
 
-    private final String description;
+    필기("WRITTEN"),
+    실기("PRACTICAL");
 
-    ExaminationPartType(String description) {
-        this.description = description;
+    private final String code;
+
+    ExaminationPartType(String code) {
+        this.code = code;
     }
 
-    public String getDescription() {
-        return this.description;
+    @Override
+    public String getCode() {
+        return code;
+    }
+
+    @Getter
+    @jakarta.persistence.Converter(autoApply = true)
+    public static class Converter extends AbstractCodedEnumConverter<ExaminationPartType, String> {
+        public Converter() {
+            super(ExaminationPartType.class);
+        }
     }
 }
