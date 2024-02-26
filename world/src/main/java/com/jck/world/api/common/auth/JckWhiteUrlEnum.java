@@ -1,10 +1,13 @@
 package com.jck.world.api.common.auth;
 
+import lombok.Getter;
+
 import java.util.stream.Stream;
 
 /**
  * 인증 예외 URL 목록
  */
+@Getter
 public enum JckWhiteUrlEnum {
 
     LOGIN("/jck/login"),
@@ -12,21 +15,14 @@ public enum JckWhiteUrlEnum {
     SWAGGER_UI1("/swagger-ui/**"),
     SWAGGER_UI("/v3/api-docs/**"),
     SWAGGER_FAVICON("/favicon.ico"),
-
-    XXX("/swagger-ui/index.html"),
-    VVV("/favicon.ico"),
-
     EXAMINATION("/api/examination"),
+    XXX("/swagger-ui/index.html"),
     EXAMINATION_ONE("/api/examination/**");
 
     private final String url;
 
     JckWhiteUrlEnum(String url) {
         this.url = url;
-    }
-
-    public String getUrl() {
-        return url;
     }
 
     /**

@@ -26,41 +26,32 @@ public class JckFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, CommonException {
-        try{
-            String requestURI = request.getRequestURI();
-            System.out.println("requestURI : " + requestURI);
-            if (!JckWhiteUrlEnum.contains(requestURI)) {
-                System.out.println("인증 요구 URL");
-                String jwt = resolveToken(request);
-                if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                    Authentication authentication = tokenProvider.getAuthentication(jwt);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
+        String requestURI = request.getRequestURI();
+        if (!JckWhiteUrlEnum.contains(requestURI)) {
+            String jwt = resolveToken(request);
+
+            if(jwt.equals("")){
+                throw new CommonException(CommonExceptionEnum.INVALID_TOKEN);
             }
-            filterChain.doFilter(request, response);
-        }catch (JckJwtAuthenticationException e){
-            throw new CommonException(CommonExceptionEnum.INVALID_TOKEN);
+
+            if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+                Authentication authentication = tokenProvider.getAuthentication(jwt);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
         }
+        filterChain.doFilter(request, response);
     }
 
     /**
      *  Request Header 에서 토큰 정보 조회
      */
-    private String resolveToken(HttpServletRequest request) throws JckJwtAuthenticationException {
+    private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(AUTHORIZATION_HEADER_VALUE)) {
             return bearerToken.substring(7);
         }
 
-        throw new JckJwtAuthenticationException();
+        return "";
     }
-
-//    private void setErrorResponse( HttpServletResponse response ) throws IOException {
-//        response.setContentType("application/json;charset=UTF-8");
-//        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-//        CommonException exceptionDto = new CommonException(CommonExceptionEnum.AUTHENTICATION_ERROR);
-//        String errorMsg = objectMapper.writeValueAsString(exceptionDto);
-//        response.getWriter().print(errorMsg);
-//    }
 }
