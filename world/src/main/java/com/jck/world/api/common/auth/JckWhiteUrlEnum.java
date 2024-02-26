@@ -16,7 +16,6 @@ public enum JckWhiteUrlEnum {
     SWAGGER_UI("/v3/api-docs/**"),
     SWAGGER_FAVICON("/favicon.ico"),
     EXAMINATION("/api/examination"),
-    XXX("/swagger-ui/index.html"),
     EXAMINATION_ONE("/api/examination/**");
 
     private final String url;
