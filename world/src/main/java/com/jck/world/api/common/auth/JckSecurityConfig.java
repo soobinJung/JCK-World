@@ -36,7 +36,6 @@ public class JckSecurityConfig {
                 /** 인증 예외 URL **/
                 .authorizeHttpRequests(auth -> {
                     JckWhiteUrlEnum.stream().forEach(url -> auth.requestMatchers(url).permitAll());
-
                     auth.anyRequest().authenticated();
                 })
 

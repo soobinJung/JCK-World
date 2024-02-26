@@ -1,12 +1,9 @@
 package com.jck.world.api.examination.controller.res;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.jck.world.api.examination.code.ExaminationPartType;
-import com.jck.world.api.examination.code.ExaminationType;
 import com.jck.world.api.examination.dto.ExaminationDto;
 import com.jck.world.api.question.dto.ExaminationQuestionDto;
 import lombok.Getter;
-import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,8 +57,8 @@ public class ResExamination {
     public ResExamination(ExaminationDto examinationDto){
         this.id = examinationDto.getId();
         this.date = examinationDto.getDate();
-        this.type = examinationDto.getType().getDescription();
-        this.partType = examinationDto.getPartType().getDescription();
+        this.type = examinationDto.getType().name();
+        this.partType = examinationDto.getPartType().name();
 
         if(!Optional.ofNullable(examinationDto.getExaminationQuestionDtoList()).isEmpty()){
             questions = examinationDto.getExaminationQuestionDtoList()
