@@ -3,9 +3,16 @@ package com.jck.world.api.common.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jck.world.api.common.exception.CommonException;
 import com.jck.world.api.common.exception.CommonExceptionEnum;
+import com.jck.world.api.user.domain.User;
+import com.jck.world.api.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import jakarta.servlet.ServletException;
 import org.springframework.security.core.Authentication;
@@ -13,33 +20,47 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
+import java.util.Optional;
 
+@Component
+@RequiredArgsConstructor
 public class JckFilter extends OncePerRequestFilter {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String AUTHORIZATION_HEADER_VALUE = "Bearer ";
     private final JckTokenProvider tokenProvider;
-
-    public JckFilter(JckTokenProvider tokenProvider) {
-        this.tokenProvider = tokenProvider;
-    }
+    private final SecurityContextRepository securityContextRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException, CommonException {
         String requestURI = request.getRequestURI();
-        if (!JckWhiteUrlEnum.contains(requestURI)) {
-            String jwt = resolveToken(request);
+        String jwt = resolveToken(request);
 
+        // 허용되는 URL
+        if(JckWhiteUrlEnum.contains(requestURI)){
+            if(!jwt.equals("")){
+                saveContext(jwt, request, response);
+            }
+        
+        // 인증이 필요한 URL
+        } else {
             if(jwt.equals("")){
                 throw new CommonException(CommonExceptionEnum.INVALID_TOKEN);
             }
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                Authentication authentication = tokenProvider.getAuthentication(jwt);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                saveContext(jwt, request, response);
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    public void saveContext(String jwt, HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = tokenProvider.getAuthentication(jwt);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        SecurityContextHolder.setContext(context);
+        securityContextRepository.saveContext(context, request, response);
     }
 
     /**

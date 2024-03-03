@@ -11,17 +11,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class JckSecurityConfig {
 
-    private final JckTokenProvider tokenProvider;
     private final JckAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity, JckFilter jckFilter) throws Exception {
 
         httpSecurity
                 /** CSRF 설정 비활성화 **/
@@ -29,6 +32,12 @@ public class JckSecurityConfig {
 
                 /** 예외 처리 **/
                 .exceptionHandling(customizer -> {customizer.authenticationEntryPoint(authenticationEntryPoint);})
+
+                /** 세션 관리 **/
+                .securityContext((securityContext) -> {
+                    securityContext.securityContextRepository(delegatingSecurityContextRepository());
+                    securityContext.requireExplicitSave(true);
+                })
 
                 /** 세션 관리 STATELESS 설정 **/
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -40,8 +49,16 @@ public class JckSecurityConfig {
                 })
 
                 /** JWT 인증 필터 **/
-                .addFilterBefore(new JckFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jckFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
+    }
+
+    @Bean
+    public DelegatingSecurityContextRepository delegatingSecurityContextRepository() {
+        return new DelegatingSecurityContextRepository(
+                new RequestAttributeSecurityContextRepository(),
+                new HttpSessionSecurityContextRepository()
+        );
     }
 
     @Bean
