@@ -52,13 +52,9 @@ public class JckFilter extends OncePerRequestFilter {
 
     public void saveContext(String jwt, HttpServletRequest request, HttpServletResponse response){
 
-        System.out.println("11 saveContext jwt : " + jwt);
-
-        Authentication authentication = tokenProvider.getAuthentication(jwt);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Authentication authentication = tokenProvider.getAuthentication(jwt);
         context.setAuthentication(authentication);
-
-        System.out.println("11 authentication.getName() : " + authentication.getName());
         SecurityContextHolder.setContext(context);
         securityContextRepository.saveContext(context, request, response);
         request.setAttribute("SPRING_SECURITY_CONTEXT", context);
