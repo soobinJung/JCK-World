@@ -1,15 +1,11 @@
 package com.jck.world.api.common.auth;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jck.world.api.common.exception.CommonException;
 import com.jck.world.api.common.exception.CommonExceptionEnum;
-import com.jck.world.api.user.domain.User;
-import com.jck.world.api.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Component;
@@ -20,7 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -56,11 +51,17 @@ public class JckFilter extends OncePerRequestFilter {
     }
 
     public void saveContext(String jwt, HttpServletRequest request, HttpServletResponse response){
+
+        System.out.println("11 saveContext jwt : " + jwt);
+
         Authentication authentication = tokenProvider.getAuthentication(jwt);
         SecurityContext context = SecurityContextHolder.createEmptyContext();
         context.setAuthentication(authentication);
+
+        System.out.println("11 authentication.getName() : " + authentication.getName());
         SecurityContextHolder.setContext(context);
         securityContextRepository.saveContext(context, request, response);
+        request.setAttribute("SPRING_SECURITY_CONTEXT", context);
     }
 
     /**
