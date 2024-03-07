@@ -18,6 +18,11 @@ public class JckSecurityUtils {
     }
 
 
+    /**
+     * 현재 로그인 중인 사용자 정보 가져오기
+     *
+     * @return Optional<com.jck.world.api.user.domain.User>
+     */
     public Optional<com.jck.world.api.user.domain.User> getCurrentUser() {
 
         if(SecurityContextHolder.getContext() != null) {
@@ -31,5 +36,4 @@ public class JckSecurityUtils {
 
         return Optional.empty();
     }
-
 }

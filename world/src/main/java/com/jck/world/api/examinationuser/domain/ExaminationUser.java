@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -32,10 +33,11 @@ public class ExaminationUser {
     @Comment("점수")
     private int score;
 
-    @Comment("시험 시작일")
+    @CreatedDate
+    @Comment("시험 시작 시간")
     private LocalDateTime startDate;
 
-    @Comment("시험 마지막일")
+    @Comment("시험 마무리 시간")
     private LocalDateTime endDate;
 
     public ExaminationUserDto toDto() {

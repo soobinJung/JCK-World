@@ -23,26 +23,6 @@ public class ExaminationController {
     @GetMapping("/api/examination")
     public List<ResExamination> getExamination() {
         List<ExaminationDto> examinationDtoList = examinationService.getExamination();
-
-        if(SecurityContextHolder.getContext() != null) {
-
-            if(SecurityContextHolder.getContext().getAuthentication() != null){
-
-                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-                Object authDetail = auth.getDetails();
-                System.out.println("authDetail : " + authDetail.getClass());
-                Authentication z = (Authentication)auth.getDetails();
-                System.out.println("z1 : " + ((Authentication) auth.getDetails()).getName());
-                System.out.println("z2 : " + z.getDetails());
-
-            }
-
-        }
-
-
-        // 인증된 사용자 정보 가져오기
-
-
         return examinationDtoList.stream()
                 .map(ResExamination::new)
                 .collect(Collectors.toList());
